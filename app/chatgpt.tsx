@@ -91,40 +91,39 @@ const quotes = [
 ];
 
 const TabbedQuotes: React.FC = () => {
-  const [selectedTopCategory, setSelectedTopCategory] =
-    useState<string>("inspiration");
-  const [selectedSubCategory, setSelectedSubCategory] =
-    useState<string>("work");
+  const [selectedTopCategory, setSelectedTopCategory] = useState<string | null>(
+    null
+  );
+  const [selectedSubCategory, setSelectedSubCategory] = useState<string>("");
 
   const handleTopCategoryChange = (category: string) => {
     setSelectedTopCategory(category);
-    // Reset subcategory to the first available subcategory for the selected top category
-    const firstSubCategory = quotes.find(
-      (quote) => quote.category === category
-    )?.subcategory;
-    if (firstSubCategory) setSelectedSubCategory(firstSubCategory);
+    setSelectedSubCategory("");
   };
 
   const handleSubCategoryChange = (subcategory: string) => {
     setSelectedSubCategory(subcategory);
   };
 
-  const filteredQuotes = quotes.filter(
-    (quote) =>
-      quote.category === selectedTopCategory &&
-      quote.subcategory === selectedSubCategory
-  );
+  const topCategoryQuotes = selectedTopCategory
+    ? quotes.filter((quote) => quote.category === selectedTopCategory)
+    : [];
 
-  const subcategories = quotes
-    .filter((quote) => quote.category === selectedTopCategory)
-    .map((quote) => quote.subcategory);
+  const subcategories = selectedTopCategory
+    ? [...new Set(topCategoryQuotes.map((quote) => quote.subcategory))]
+    : [];
 
-  // Remove duplicates from subcategories array
-  const uniqueSubcategories = [...new Set(subcategories)];
+  const filteredQuotes = selectedSubCategory
+    ? topCategoryQuotes.filter(
+        (quote) => quote.subcategory === selectedSubCategory
+      )
+    : topCategoryQuotes;
 
   return (
     <div className="flex flex-col items-center justify-between p-24">
+      <h5 className="text-3xl pb-10">Quotes!</h5>
       <div className="tabs">
+        <span>Category: </span>
         <button
           onClick={() => handleTopCategoryChange("inspiration")}
           className="m-1 rounded-xl focus-within:ring-4 dark:ring-pink-950 ring-pink-300"
@@ -154,7 +153,8 @@ const TabbedQuotes: React.FC = () => {
         </button>
       </div>
       <div className="subtabs">
-        {uniqueSubcategories.map((subcategory, index) => (
+        <span>Filter: </span>
+        {subcategories.map((subcategory, index) => (
           <button
             key={index}
             onClick={() => handleSubCategoryChange(subcategory)}
