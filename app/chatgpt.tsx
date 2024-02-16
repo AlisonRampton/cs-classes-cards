@@ -169,7 +169,9 @@ const TabbedQuotes: React.FC = () => {
       </div>
       <div className="quote-cards">
         {filteredQuotes.map((quote, index) => (
-          <Card quoteTxt={quote.text} source={quote.author} />
+          <div key={index}>
+            <Card quoteTxt={quote.text} source={quote.author} />
+          </div>
         ))}
       </div>
     </div>

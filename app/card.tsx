@@ -14,7 +14,7 @@ export default function Card({
       transition-all flex-col"
     >
       <p className="text-left text-white font-sans pl-4 pt-2 pr-2">
-        "{quoteTxt}"
+        &quot;{quoteTxt}&quot;
       </p>
       <p className="text-right text-slate-400 font-mono pr-4 pb-2">
         ~ {source}
