@@ -125,17 +125,32 @@ const TabbedQuotes: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-between p-24">
       <div className="tabs">
-        <button onClick={() => handleTopCategoryChange("inspiration")}>
+        <button
+          onClick={() => handleTopCategoryChange("inspiration")}
+          className="m-1 rounded-xl focus-within:ring-4 dark:ring-pink-950 ring-pink-300"
+        >
           <Button
             text="Inspiration"
-            className="bg-pink-600 hover:bg-pink-500"
+            className="bg-pink-600 hover:bg-pink-500 active:bg-pink-300"
           />
         </button>
-        <button onClick={() => handleTopCategoryChange("motivation")}>
-          <Button text="Motivation" className="bg-pink-600 hover:bg-pink-500" />
+        <button
+          onClick={() => handleTopCategoryChange("motivation")}
+          className="m-1 rounded-xl focus-within:ring-4 dark:ring-pink-950 ring-pink-300"
+        >
+          <Button
+            text="Motivation"
+            className="bg-pink-600 hover:bg-pink-500 active:bg-pink-300"
+          />
         </button>
-        <button onClick={() => handleTopCategoryChange("life")}>
-          <Button text="Life" className="bg-pink-600 hover:bg-pink-500" />
+        <button
+          onClick={() => handleTopCategoryChange("life")}
+          className="m-1 rounded-xl focus-within:ring-4 dark:ring-pink-950 ring-pink-300"
+        >
+          <Button
+            text="Life"
+            className="bg-pink-600 hover:bg-pink-500 active:bg-pink-300"
+          />
         </button>
       </div>
       <div className="subtabs">
@@ -143,10 +158,11 @@ const TabbedQuotes: React.FC = () => {
           <button
             key={index}
             onClick={() => handleSubCategoryChange(subcategory)}
+            className="m-1 rounded-xl focus-within:ring-4 dark:ring-teal-950 ring-teal-300"
           >
             <Button
               text={subcategory}
-              className="bg-teal-600 hover:bg-teal-500"
+              className="bg-teal-600 hover:bg-teal-500 active:bg-teal-300"
             />
           </button>
         ))}
