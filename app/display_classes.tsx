@@ -7,7 +7,9 @@ import ClassCard from "./class_card";
 
 const TabbedClasses: React.FC = () => {
   const classes = individualCSClasses.sort(
-    (a, b) => Number(a.courseNumber) - Number(b.courseNumber)
+    (a, b) =>
+      Number(a.courseNumber.substring(0, 3)) -
+      Number(b.courseNumber.substring(0, 3))
   );
 
   const [selectedTopCategory, setSelectedTopCategory] = useState<string | null>(
