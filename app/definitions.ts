@@ -80,7 +80,8 @@ export type Class = {
   requisites: { requisitesSimple: Requisite[] };
   status: string;
   subjectCode: string;
-  career: string; // is this anything? has different values, but not sure what it means
+  courseNumber: string;
+  // career: string; // is this anything? has different values, but not sure what it means
   courseDependents: CourseDependent[];
   programDependents: ProgramDependent[];
 };

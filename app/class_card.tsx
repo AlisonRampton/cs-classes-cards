@@ -13,16 +13,22 @@ export default function ClassCard({ classObj }: { classObj: Class }) {
       <h2 className="text-left text-slate-200 text-lg font-medium font-sans pl-4 pt-2 pr-2">
         {classObj.credits.creditHours.value} credit hours
       </h2>
-      <p className="text-left text-white font-sans pl-4 p-2">
-        {classObj.description}
-      </p>
-      <div>
+      {classObj.description ? (
+        <p className="text-left text-white font-sans pl-4 p-2">
+          {classObj.description}
+        </p>
+      ) : (
+        <p className="text-left text-slate-300 font-sans pl-4 p-2">
+          No description found.
+        </p>
+      )}
+      {/* <div>
         {classObj.courseDependents.map((courseDep, index) => (
           <div key={index}>
             <p>{courseDep.code}</p>
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }
