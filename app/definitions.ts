@@ -70,9 +70,8 @@ export type CourseDependent = {
 export type Class = {
   id: string;
   code: string;
-  courseGroupeID: string;
+  courseGroupID: string;
   credits: Credits;
-  // customFields: any;
   description: string;
   effectiveEndDate: string;
   effectiveStartDate: string;
@@ -82,6 +81,6 @@ export type Class = {
   status: string;
   subjectCode: string;
   career: string; // is this anything? has different values, but not sure what it means
-  courseDependents: CourseDependent[]; // TODO: fix
-  programDependents: ProgramDependent[]; // TODO: fix
+  courseDependents: CourseDependent[];
+  programDependents: ProgramDependent[];
 };
