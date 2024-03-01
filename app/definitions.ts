@@ -1,3 +1,8 @@
+export type Emphasis = {
+  displayName: string;
+  catalogName: string;
+};
+
 export type Credits = {
   creditHours: {
     min: number;
@@ -82,6 +87,6 @@ export type Class = {
   subjectCode: string;
   courseNumber: string;
   // career: string; // is this anything? has different values, but not sure what it means
-  courseDependents: CourseDependent[];
-  programDependents: ProgramDependent[];
+  courseDependents: CourseDependent[][];
+  programDependents: ProgramDependent[][];
 };
