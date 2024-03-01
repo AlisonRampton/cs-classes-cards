@@ -43,6 +43,15 @@ const TabbedClasses: React.FC = () => {
   const handleTopCategoryChange = (category: Emphasis) => {
     setSelectedTopCategory(category);
     setSelectedSubCategory("");
+    // window.location.hash = category.displayName;
+    // history.pushState(null, "", "#" + category.displayName);
+    var buttons = document.getElementsByClassName("top-button");
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].className =
+        "top-button m-1 rounded-xl dark:ring-pink-950 ring-pink-300";
+    }
+    document.getElementById(category.displayName)!.className =
+      "top-button m-1 rounded-xl ring-4 dark:ring-pink-950 ring-pink-300";
     console.log("Category is now %s", category.displayName);
     console.log(topCategoryClasses);
   };
@@ -87,8 +96,9 @@ const TabbedClasses: React.FC = () => {
         {emphases.map((emphasis, index) => (
           <button
             key={index}
+            id={emphasis.displayName}
             onClick={() => handleTopCategoryChange(emphasis)}
-            className="m-1 rounded-xl focus-within:ring-4 dark:ring-pink-950 ring-pink-300"
+            className="top-button m-1 rounded-xl dark:ring-pink-950 ring-pink-300"
           >
             <Button
               text={emphasis.displayName}
