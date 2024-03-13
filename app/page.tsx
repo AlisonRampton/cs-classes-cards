@@ -1,7 +1,8 @@
 "use client";
-import CSClassesComponent from './CSClassesComponent'
+import CSClassesComponent from "./CSClassesComponent";
 
 import TabbedQuotes from "./chatgpt";
+import TabbedClasses from "./display_classes";
 
 export default function Home() {
   return (
@@ -11,10 +12,8 @@ export default function Home() {
     //   </div>
     // </main>
     <main className="flex flex-col items-center justify-between p-24">
-      <TabbedQuotes />
-      <CSClassesComponent />
+      {/* <CSClassesComponent /> */}
+      <TabbedClasses />
     </main>
-
-    
   );
 }
