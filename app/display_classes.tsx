@@ -56,8 +56,8 @@ const TabbedClasses: React.FC = () => {
     console.log(topCategoryClasses);
   };
 
-  const handleSubCategoryChange = (subcategory: string) => {
-    setSelectedSubCategory(subcategory);
+  const handleSubCategoryChange = (subcategory: string | undefined) => {
+    subcategory ? setSelectedSubCategory(subcategory) : null;
   };
 
   const topCategoryClasses = selectedTopCategory
@@ -134,7 +134,7 @@ const TabbedClasses: React.FC = () => {
             className="m-1 rounded-xl focus-within:ring-4 dark:ring-teal-950 ring-teal-300"
           >
             <Button
-              text={subcategory}
+              text={subcategory ? subcategory : ""}
               className="bg-teal-600 hover:bg-teal-500 active:bg-teal-300"
             />
           </button>
