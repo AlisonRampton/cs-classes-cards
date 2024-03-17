@@ -77,14 +77,32 @@ const TabbedClasses: React.FC = () => {
   const subcategories = selectedTopCategory
     ? [
         ...new Set(
-          topCategoryClasses.map((classObj) => classObj.courseNumber[0])
+          topCategoryClasses.map(
+            (classObj) =>
+              classObj.programDependents[0].find(
+                (program) => program.name === selectedTopCategory.catalogName
+              )?.requisiteName
+          )
         ),
-      ].sort()
+      ]
+        .filter(function (element) {
+          return element !== undefined;
+        })
+        .sort((a, b) =>
+          a
+            ? b
+              ? parseFloat(a.substring(12)) - parseFloat(b.substring(12))
+              : 0
+            : 0
+        )
     : [];
 
   const filteredClasses = selectedSubCategory
     ? topCategoryClasses.filter(
-        (classObj) => classObj.courseNumber[0] === selectedSubCategory
+        (classObj) =>
+          classObj.programDependents[0].find(
+            (program) => program.name === selectedTopCategory?.catalogName
+          )?.requisiteName === selectedSubCategory
       )
     : topCategoryClasses;
 
@@ -116,7 +134,7 @@ const TabbedClasses: React.FC = () => {
             className="m-1 rounded-xl focus-within:ring-4 dark:ring-teal-950 ring-teal-300"
           >
             <Button
-              text={subcategory + "00"}
+              text={subcategory}
               className="bg-teal-600 hover:bg-teal-500 active:bg-teal-300"
             />
           </button>
