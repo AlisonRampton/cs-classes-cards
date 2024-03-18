@@ -1,5 +1,9 @@
 import csClassesData from "./classes.json";
-import { Class, ProgramDependent } from "./definitions";
+import {
+  Class,
+  ClassEmphasisCategorization,
+  ProgramDependent,
+} from "./definitions";
 
 // Helper function to determine if a class is a core class for an emphasis
 const isCoreClassForEmphasis = (
@@ -90,5 +94,51 @@ const extractAndCategorizeCSClasses = (csClasses: any) => {
 const individualCSClasses: Class[] = extractAndCategorizeCSClasses(
   csClassesData.data
 );
+
+const determineCategory = (classCode: string, emphasisName: string): string => {
+  const coreClasses = [
+    "C S 111",
+    "C S 224",
+    "C S 235",
+    "C S 236",
+    "C S 240",
+    "C S 312",
+    "C S 324",
+    "C S 404",
+  ];
+  const electiveClasses = [];
+  if (coreClasses.includes(classCode)) {
+    return "Core";
+  } else if (classCode === "C S 202") {
+    if (emphasisName === "Software Engineering") {
+      return "Core";
+    } else if (
+      emphasisName === "Animation and Games" ||
+      emphasisName === "Machine Learning"
+    ) {
+      return "Not Applicable";
+    } else {
+      return "Elective";
+    }
+  }
+  // Continue with other specific cases...
+
+  // Default return value for unhandled cases
+  return "Elective";
+};
+
+export const setEmphasisCategorization = (
+  classObj: Class
+): ClassEmphasisCategorization => {
+  const classCode = classObj.code; // Adjust based on your actual property name
+
+  return {
+    ComputerScience: determineCategory(classCode, "Computer Science"),
+    AnimationAndGames: determineCategory(classCode, "Animation and Games"),
+    Bioinformatics: determineCategory(classCode, "Bioinformatics"),
+    MachineLearning: determineCategory(classCode, "Machine Learning"),
+    SoftwareEngineering: determineCategory(classCode, "Software Engineering"),
+  };
+};
 
 export default individualCSClasses;
