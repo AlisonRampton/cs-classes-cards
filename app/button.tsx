@@ -12,8 +12,8 @@ export default function Button({
   // })
   return (
     <div
-      className={`rounded-xl min-w-1/3 basis-1/2 p-2 m-1  text-white font-sans hover:shadow-inner shadow-md 
-    transition-all text-center focus:ring-2 ${className}`}
+      className={`rounded-xl min-w-1/3 basis-1/2 p-2 m-1 text-white font-sans hover:shadow-inner shadow-md 
+    transition-all text-nowrap focus:ring-2 ${className}`}
     >
       {text}
     </div>

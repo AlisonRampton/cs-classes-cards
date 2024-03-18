@@ -107,10 +107,10 @@ const TabbedClasses: React.FC = () => {
     : topCategoryClasses;
 
   return (
-    <div className="flex flex-col items-center justify-between p-24">
+    <div className="flex flex-col items-center justify-between p-8">
       <h5 className="text-3xl pb-10">BYU CS Courses</h5>
-      <div className="tabs">
-        <span>Program: </span>
+      <span>Program:</span>
+      <div className="tabs flex flex-wrap justify-center items-stretch">
         {emphases.map((emphasis, index) => (
           <button
             key={index}
@@ -126,7 +126,6 @@ const TabbedClasses: React.FC = () => {
         ))}
       </div>
       <div className="subtabs">
-        <span>Level: </span>
         {subcategories.map((subcategory, index) => (
           <button
             key={index}
