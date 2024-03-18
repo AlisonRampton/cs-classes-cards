@@ -110,7 +110,7 @@ const TabbedClasses: React.FC = () => {
     <div className="flex flex-col items-center justify-between p-8">
       <h5 className="text-3xl pb-10">BYU CS Courses</h5>
       <span>Program:</span>
-      <div className="tabs flex flex-wrap justify-center items-stretch">
+      <div className="tabs flex flex-wrap justify-center">
         {emphases.map((emphasis, index) => (
           <button
             key={index}
@@ -125,7 +125,7 @@ const TabbedClasses: React.FC = () => {
           </button>
         ))}
       </div>
-      <div className="subtabs">
+      <div className="subtabs flex flex-wrap justify-center">
         {subcategories.map((subcategory, index) => (
           <button
             key={index}
