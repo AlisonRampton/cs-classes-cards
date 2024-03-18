@@ -1,16 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "./card";
 import Button from "./button";
-import individualCSClasses from "./ParseJson";
-import { Emphasis } from "./definitions";
+import individualCSClasses, {
+  EnhancedClass,
+  setEmphasisCategorization,
+} from "./ParseJson";
+import { Class, Emphasis } from "./definitions";
 import ClassCard from "./class_card";
 
 const TabbedClasses: React.FC = () => {
-  const classes = individualCSClasses.sort(
-    (a, b) =>
-      Number(a.courseNumber.substring(0, 3)) -
-      Number(b.courseNumber.substring(0, 3))
-  );
+  const [classes, setClasses] = useState<EnhancedClass[]>([]);
+
+  useEffect(() => {
+    // Categorize and then sort the classes
+    const categorizedClasses = individualCSClasses
+      .map(setEmphasisCategorization)
+      .sort((a, b) => {
+        // Extract course numbers and convert them to integers for comparison
+        const courseNumberA = parseInt(a.courseNumber, 10);
+        const courseNumberB = parseInt(b.courseNumber, 10);
+
+        return courseNumberA - courseNumberB;
+      });
+
+    setClasses(categorizedClasses);
+  }, []);
 
   const emphases: Emphasis[] = [
     { displayName: "Computer Science", catalogName: "Computer Science" },
@@ -32,10 +46,6 @@ const TabbedClasses: React.FC = () => {
     },
   ];
 
-  // const testClasses = classes[8].programDependents[0].filter(
-  //   (program) => program.name === "Computer Science: Software Engineering"
-  // );
-
   const [selectedTopCategory, setSelectedTopCategory] =
     useState<Emphasis | null>(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>("");
@@ -43,8 +53,6 @@ const TabbedClasses: React.FC = () => {
   const handleTopCategoryChange = (category: Emphasis) => {
     setSelectedTopCategory(category);
     setSelectedSubCategory("");
-    // window.location.hash = category.displayName;
-    // history.pushState(null, "", "#" + category.displayName);
     var buttons = document.getElementsByClassName("top-button");
     for (var i = 0; i < buttons.length; i++) {
       buttons[i].className =
@@ -72,39 +80,26 @@ const TabbedClasses: React.FC = () => {
       )
     : [];
 
-  // const categories = [...emphases];
+  const subcategories = ["Core", "Elective"];
 
-  const subcategories = selectedTopCategory
-    ? [
-        ...new Set(
-          topCategoryClasses.map(
-            (classObj) =>
-              classObj.programDependents[0].find(
-                (program) => program.name === selectedTopCategory.catalogName
-              )?.requisiteName
-          )
-        ),
-      ]
-        .filter(function (element) {
-          return element !== undefined;
+  const formatEmphasisKey = (catalogName: string) => {
+    return catalogName.replace("Computer Science: ", "").replace(/ /g, "");
+  };
+  const filteredClasses =
+    selectedSubCategory && selectedTopCategory
+      ? classes.filter((classObj) => {
+          // Convert the selected emphasis into the format used in emphasisCategorization
+          const emphasisKey = formatEmphasisKey(
+            selectedTopCategory.catalogName
+          );
+
+          // Check if the class's categorization for the selected emphasis matches the selected subcategory
+
+          return (
+            classObj.emphasisCategorization[emphasisKey] === selectedSubCategory
+          );
         })
-        .sort((a, b) =>
-          a
-            ? b
-              ? parseFloat(a.substring(12)) - parseFloat(b.substring(12))
-              : 0
-            : 0
-        )
-    : [];
-
-  const filteredClasses = selectedSubCategory
-    ? topCategoryClasses.filter(
-        (classObj) =>
-          classObj.programDependents[0].find(
-            (program) => program.name === selectedTopCategory?.catalogName
-          )?.requisiteName === selectedSubCategory
-      )
-    : topCategoryClasses;
+      : classes;
 
   return (
     <div className="flex flex-col items-center justify-between p-8">

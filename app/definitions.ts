@@ -89,6 +89,7 @@ export type Class = {
   // career: string; // is this anything? has different values, but not sure what it means
   courseDependents: CourseDependent[][];
   programDependents: ProgramDependent[][];
+  emphasisCategorization: ClassEmphasisCategorization;
 };
 
 export type ClassEmphasisCategorization = {
@@ -97,4 +98,5 @@ export type ClassEmphasisCategorization = {
   Bioinformatics: string;
   MachineLearning: string;
   SoftwareEngineering: string;
+  [key: string]: string; // Adding an index signature
 };

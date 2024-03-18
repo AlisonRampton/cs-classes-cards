@@ -63,39 +63,14 @@ const extractAndCategorizeCSClasses = (csClasses: any) => {
   });
 };
 
-// // Function to extract each CS class as an individual object
-// const extractCSClasses = (csClasses: any) => {
-//   return csClasses.map((csClass: any) => ({
-//     //_id: csClass._id,
-//     code: csClass.code,
-//     // college: csClass.college,
-//     courseGroupId: csClass.courseGroupId,
-//     courseNumber: csClass.courseNumber,
-//     credits: csClass.credits,
-//     // customFields: csClass.customFields,
-//     //departments: csClass.departments,
-//     description: csClass.description,
-//     effectiveEndDate: csClass.effectiveEndDate,
-//     effectiveStartDate: csClass.effectiveStartDate,
-//     id: csClass.id,
-//     longName: csClass.longName,
-//     name: csClass.name,
-//     requisites: csClass.requisites,
-//     courseDependents: csClass.courseDependents,
-//     programDependents: csClass.programDependents,
-//     // requestStatus: csClass.requestStatus,
-//     status: csClass.status,
-//     subjectCode: csClass.subjectCode,
-//     // Add or remove properties based on what is relevant for your needs
-//   }));
-// };
-
 // Assuming the data structure contains a 'data' field holding the classes
 const individualCSClasses: Class[] = extractAndCategorizeCSClasses(
   csClassesData.data
 );
 
-const determineCategory = (classCode: string, emphasisName: string): string => {
+const determineCategory = (classObj: Class, emphasisName: string): string => {
+  const classCode = classObj.code;
+
   const coreClasses = [
     "C S 111",
     "C S 224",
@@ -468,26 +443,53 @@ const determineCategory = (classCode: string, emphasisName: string): string => {
     } else {
       return "Elective";
     }
-  } //cs 513, 575, 580 is elective for all
+  } //cs 513, 575, 580 are elective for each
 
-  // Continue with other specific cases...
-
-  // Default return value for unhandled cases
   return "Elective";
 };
 
-export const setEmphasisCategorization = (
-  classObj: Class
-): ClassEmphasisCategorization => {
-  const classCode = classObj.code; // Adjust based on your actual property name
+export const setEmphasisCategorization = (classObj: Class): EnhancedClass => {
+  const emphasisNames = [
+    "Computer Science",
+    "Animation and Games",
+    "Bioinformatics",
+    "Machine Learning",
+    "Software Engineering",
+  ];
+  let categorization: ClassEmphasisCategorization = {
+    ComputerScience: "Not Applicable",
+    AnimationAndGames: "Not Applicable",
+    Bioinformatics: "Not Applicable",
+    MachineLearning: "Not Applicable",
+    SoftwareEngineering: "Not Applicable",
+  };
+
+  emphasisNames.forEach((emphasisName) => {
+    const category = determineCategory(classObj, emphasisName);
+
+    if (emphasisName === "Computer Science") {
+      classObj.emphasisCategorization.ComputerScience = category;
+    } else if (emphasisName === "Animation and Games") {
+      classObj.emphasisCategorization.AnimationAndGames = category;
+    } else if (emphasisName === "Bioinformatics") {
+      classObj.emphasisCategorization.Bioinformatics = category;
+    } else if (emphasisName === "Machine Learning") {
+      classObj.emphasisCategorization.MachineLearning = category;
+    } else if (emphasisName === "Software Engineering") {
+      classObj.emphasisCategorization.SoftwareEngineering = category;
+    }
+  });
+
+  classObj.emphasisCategorization = categorization;
 
   return {
-    ComputerScience: determineCategory(classCode, "Computer Science"),
-    AnimationAndGames: determineCategory(classCode, "Animation and Games"),
-    Bioinformatics: determineCategory(classCode, "Bioinformatics"),
-    MachineLearning: determineCategory(classCode, "Machine Learning"),
-    SoftwareEngineering: determineCategory(classCode, "Software Engineering"),
+    ...classObj,
+    emphasisCategorization: categorization,
   };
+};
+
+export type EnhancedClass = Class & {
+  emphasisCategorization: ClassEmphasisCategorization;
 };
 
 export default individualCSClasses;
