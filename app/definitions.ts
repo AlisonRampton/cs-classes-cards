@@ -90,3 +90,11 @@ export type Class = {
   courseDependents: CourseDependent[][];
   programDependents: ProgramDependent[][];
 };
+
+export type ClassEmphasisCategorization = {
+  ComputerScience: string;
+  AnimationAndGames: string;
+  Bioinformatics: string;
+  MachineLearning: string;
+  SoftwareEngineering: string;
+};
