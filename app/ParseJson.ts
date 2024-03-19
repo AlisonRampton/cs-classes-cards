@@ -59,9 +59,10 @@ export const setEmphasisCategorization = (classObj: Class): EnhancedClass => {
   };
 
   emphasisNames.forEach((emphasisName) => {
+    console.log("hello3~");
     const category = determineCategory(classObj, emphasisName);
     const formattedKey = formatEmphasisKey(emphasisName);
-
+    console.log("hello2~");
     categorization[formattedKey] = category;
 
     if (emphasisName === "Computer Science") {
@@ -75,6 +76,16 @@ export const setEmphasisCategorization = (classObj: Class): EnhancedClass => {
     } else if (emphasisName === "Software Engineering") {
       classObj.emphasisCategorization[formattedKey] = category;
     }
+    console.log("hello1~");
+  });
+  console.log("hello~");
+  emphasisNames.forEach((emphasisName) => {
+    console.log(`Class: ${classObj.code}`);
+    Object.entries(classObj.emphasisCategorization).forEach(
+      ([emphasisName, category]) => {
+        console.log(`Emphasis: ${emphasisName}, Category: ${category}`);
+      }
+    );
   });
 
   classObj.emphasisCategorization = categorization;

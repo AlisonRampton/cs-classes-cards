@@ -12,33 +12,17 @@ import ClassCard from "./class_card";
 const TabbedClasses: React.FC = () => {
   const [classes, setClasses] = useState<EnhancedClass[]>([]);
 
-  // useEffect(() => {
-  //   // Categorize and then sort the classes
-  //   const categorizedClasses = individualCSClasses
-  //     .map(setEmphasisCategorization)
-  //     .sort((a, b) => {
-  //       // Extract course numbers and convert them to integers for comparison
-  //       const courseNumberA = parseInt(a.courseNumber, 10);
-  //       const courseNumberB = parseInt(b.courseNumber, 10);
-
-  //       return courseNumberA - courseNumberB;
-  //     });
-
-  //   setClasses(categorizedClasses);
-  // }, []);
-
   useEffect(() => {
-    // Initially, exclude classes that are "Not Applicable" for all emphases
+    // Categorize and then sort the classes
     const categorizedClasses = individualCSClasses
-      .filter((classObj) => {
-        // Check across all emphasis categorizations for "Not Applicable"
-        return !Object.values(classObj.emphasisCategorization).every(
-          (categorization) => categorization === "Not Applicable"
-        );
-      })
-      .sort(
-        (a, b) => parseInt(a.courseNumber, 10) - parseInt(b.courseNumber, 10)
-      );
+      .map(setEmphasisCategorization)
+      .sort((a, b) => {
+        // Extract course numbers and convert them to integers for comparison
+        const courseNumberA = parseInt(a.courseNumber, 10);
+        const courseNumberB = parseInt(b.courseNumber, 10);
+
+        return courseNumberA - courseNumberB;
+      });
 
     setClasses(categorizedClasses);
   }, []);
