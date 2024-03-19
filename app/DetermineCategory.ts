@@ -29,10 +29,6 @@ export const determineCategory = (
     return "Elective";
   } else if (classCode.startsWith("CSANM")) {
     if (emphasisName === "Animation and Games") {
-      //   console.log(
-      //     `Class ${classObj.name}, Emphasis: ${emphasisName}, Code: ${classCode}`
-      //   );
-      //   console.log("Entering CSANM block with " + classCode);
       const coreAnimationAndGamesClasses = [
         "CSANM 150",
         "CSANM 250",
@@ -51,7 +47,6 @@ export const determineCategory = (
         return "Elective";
       }
     } else {
-      //console.log(`Emphasis ${emphasisName}, class ${classCode} is not in ANM`);
       return "Not Applicable";
     }
   } else if (classCode === "C S 180") {
