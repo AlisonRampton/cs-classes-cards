@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Card from "./card";
 import Button from "./button";
-import individualCSClasses, {
+import {
+  individualCSClasses,
   EnhancedClass,
   setEmphasisCategorization,
 } from "./ParseJson";
@@ -11,17 +12,33 @@ import ClassCard from "./class_card";
 const TabbedClasses: React.FC = () => {
   const [classes, setClasses] = useState<EnhancedClass[]>([]);
 
-  useEffect(() => {
-    // Categorize and then sort the classes
-    const categorizedClasses = individualCSClasses
-      .map(setEmphasisCategorization)
-      .sort((a, b) => {
-        // Extract course numbers and convert them to integers for comparison
-        const courseNumberA = parseInt(a.courseNumber, 10);
-        const courseNumberB = parseInt(b.courseNumber, 10);
+  // useEffect(() => {
+  //   // Categorize and then sort the classes
+  //   const categorizedClasses = individualCSClasses
+  //     .map(setEmphasisCategorization)
+  //     .sort((a, b) => {
+  //       // Extract course numbers and convert them to integers for comparison
+  //       const courseNumberA = parseInt(a.courseNumber, 10);
+  //       const courseNumberB = parseInt(b.courseNumber, 10);
 
-        return courseNumberA - courseNumberB;
-      });
+  //       return courseNumberA - courseNumberB;
+  //     });
+
+  //   setClasses(categorizedClasses);
+  // }, []);
+
+  useEffect(() => {
+    // Initially, exclude classes that are "Not Applicable" for all emphases
+    const categorizedClasses = individualCSClasses
+      .filter((classObj) => {
+        // Check across all emphasis categorizations for "Not Applicable"
+        return !Object.values(classObj.emphasisCategorization).every(
+          (categorization) => categorization === "Not Applicable"
+        );
+      })
+      .sort(
+        (a, b) => parseInt(a.courseNumber, 10) - parseInt(b.courseNumber, 10)
+      );
 
     setClasses(categorizedClasses);
   }, []);
@@ -46,10 +63,6 @@ const TabbedClasses: React.FC = () => {
     },
   ];
 
-  const [selectedTopCategory, setSelectedTopCategory] =
-    useState<Emphasis | null>(null);
-  const [selectedSubCategory, setSelectedSubCategory] = useState<string>("");
-
   const handleTopCategoryChange = (category: Emphasis) => {
     setSelectedTopCategory(category);
     setSelectedSubCategory("");
@@ -68,6 +81,10 @@ const TabbedClasses: React.FC = () => {
     subcategory ? setSelectedSubCategory(subcategory) : null;
   };
 
+  const [selectedTopCategory, setSelectedTopCategory] =
+    useState<Emphasis | null>(null);
+  const [selectedSubCategory, setSelectedSubCategory] = useState<string>("");
+
   const topCategoryClasses = selectedTopCategory
     ? classes.filter(
         (classObj) =>
@@ -85,17 +102,24 @@ const TabbedClasses: React.FC = () => {
   const formatEmphasisKey = (catalogName: string) => {
     return catalogName.replace("Computer Science: ", "").replace(/ /g, "");
   };
+
   const filteredClasses =
     selectedSubCategory && selectedTopCategory
       ? classes.filter((classObj) => {
-          // Convert the selected emphasis into the format used in emphasisCategorization
           const emphasisKey = formatEmphasisKey(
             selectedTopCategory.catalogName
           );
 
-          // Check if the class's categorization for the selected emphasis matches the selected subcategory
+          console.log(`Formatted Key: ${emphasisKey}`);
 
+          // console.log(
+          //   classObj.name +
+          //     " " +
+          //     classObj.emphasisCategorization[emphasisKey] +
+          //     "\n"
+          // );
           return (
+            classObj.emphasisCategorization &&
             classObj.emphasisCategorization[emphasisKey] === selectedSubCategory
           );
         })
