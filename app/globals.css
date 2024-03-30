@@ -3,16 +3,56 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 225, 225, 230;
-  --background-end-rgb: 225, 225, 230;
+  --foreground-rgb: 0, 0, 0; /* black */
+  --background-start-rgb: 225, 225, 230; /*blueish grayish white*/
+  --background-end-rgb: 225, 225, 230; /*blueish grayish white*/
+}
+
+.emphasis-color {
+  background-color: var(--emphasis-color);
+}
+
+.emphasis-color-hover {
+  background-color:var(--emphasis-color-hover);
+}
+
+.emphasis-color-active {
+  background-color:var(--emphasis-color-active);
+}
+
+.core-elect-color {
+  background-color:var(--core-elect-color);
+}
+
+.card-color {
+  background-color:var(--card-color);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 250, 250, 250;
-    --background-start-rgb: 25, 30, 50;
-    --background-end-rgb: 25, 30, 50;
+    --foreground-rgb: 250, 250, 250; /* white color */
+    --background-start-rgb: 25, 30, 50; /*background color */
+    --background-end-rgb: 25, 30, 50; /* background color */
+  }
+
+  .emphasis-color {
+    background-color: var(--emphasis-color);
+  }
+
+  .emphasis-color-hover {
+    background-color:var(--emphasis-color-hover);
+  }
+
+  .emphasis-color-active {
+    background-color:var(--emphasis-color-active);
+  }
+
+  .core-elect-color {
+    background-color:var(--core-elect-color);
+  }
+
+  .card-color {
+    background-color:var(--card-color);
   }
 }
 
@@ -31,3 +71,5 @@ body {
     text-wrap: balance;
   }
 }
+
+
