@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
-import Card from "./card";
 import Button from "./button";
-import individualCSClasses, {
+import {
+  individualCSClasses,
   EnhancedClass,
   setEmphasisCategorization,
 } from "./ParseJson";
-import { Class, Emphasis } from "./definitions";
+import { Emphasis } from "./definitions";
 import ClassCard from "./class_card";
 
 const TabbedClasses: React.FC = () => {
   const [classes, setClasses] = useState<EnhancedClass[]>([]);
+  const [displayClasses, setDisplayClasses] = useState<EnhancedClass[]>([]); // Classes to be displayed based on filters
+  const [selectedTopCategory, setSelectedTopCategory] =
+    useState<Emphasis | null>(null);
+  const [selectedSubCategory, setSelectedSubCategory] = useState<string>("");
 
   useEffect(() => {
     // Categorize and then sort the classes
@@ -22,8 +26,15 @@ const TabbedClasses: React.FC = () => {
 
         return courseNumberA - courseNumberB;
       });
-
+    setDisplayClasses(categorizedClasses);
     setClasses(categorizedClasses);
+
+    const defaultCategory = emphases.find(
+      (emphasis) => emphasis.displayName === "Computer Science"
+    );
+    if (defaultCategory) {
+      handleTopCategoryChange(defaultCategory);
+    }
   }, []);
 
   const emphases: Emphasis[] = [
@@ -46,60 +57,37 @@ const TabbedClasses: React.FC = () => {
     },
   ];
 
-  const [selectedTopCategory, setSelectedTopCategory] =
-    useState<Emphasis | null>(null);
-  const [selectedSubCategory, setSelectedSubCategory] = useState<string>("");
-
   const handleTopCategoryChange = (category: Emphasis) => {
     setSelectedTopCategory(category);
     setSelectedSubCategory("");
-    var buttons = document.getElementsByClassName("top-button");
-    for (var i = 0; i < buttons.length; i++) {
-      buttons[i].className =
-        "top-button m-1 rounded-xl dark:ring-pink-950 ring-pink-300";
-    }
-    document.getElementById(category.displayName)!.className =
-      "top-button m-1 rounded-xl ring-4 dark:ring-pink-950 ring-pink-300";
-    console.log("Category is now %s", category.displayName);
-    console.log(topCategoryClasses);
+
+    // Filter based on the selected top category
+    const emphasisKey = formatEmphasisKey(category.catalogName);
+    const filteredClasses = classes.filter(
+      (classObj) =>
+        classObj.emphasisCategorization[emphasisKey] !== "Not Applicable"
+    );
+    setDisplayClasses(filteredClasses);
   };
 
   const handleSubCategoryChange = (subcategory: string | undefined) => {
-    subcategory ? setSelectedSubCategory(subcategory) : null;
-  };
+    setSelectedSubCategory(subcategory || "");
 
-  const topCategoryClasses = selectedTopCategory
-    ? classes.filter(
-        (classObj) =>
-          classObj.programDependents.length != 0 &&
-          // classObj.programDependents.filter(
-          //   (program) => program.name === selectedTopCategory.catalogName
-          classObj.programDependents[0].some(
-            (program) => program.name === selectedTopCategory.catalogName
-          )
-      )
-    : [];
+    if (!selectedTopCategory) return; // Ensure there's a selected top category
+
+    // Filter based on both the top category and the subcategory (Core/Elective)
+    const emphasisKey = formatEmphasisKey(selectedTopCategory.catalogName);
+    const filteredClasses = classes.filter(
+      (classObj) => classObj.emphasisCategorization[emphasisKey] === subcategory
+    );
+    setDisplayClasses(filteredClasses); // Update classes to display
+  };
 
   const subcategories = ["Core", "Elective"];
 
   const formatEmphasisKey = (catalogName: string) => {
     return catalogName.replace("Computer Science: ", "").replace(/ /g, "");
   };
-  const filteredClasses =
-    selectedSubCategory && selectedTopCategory
-      ? classes.filter((classObj) => {
-          // Convert the selected emphasis into the format used in emphasisCategorization
-          const emphasisKey = formatEmphasisKey(
-            selectedTopCategory.catalogName
-          );
-
-          // Check if the class's categorization for the selected emphasis matches the selected subcategory
-
-          return (
-            classObj.emphasisCategorization[emphasisKey] === selectedSubCategory
-          );
-        })
-      : classes;
 
   return (
     <div className="flex flex-col items-center justify-between p-8">
@@ -135,7 +123,7 @@ const TabbedClasses: React.FC = () => {
         ))}
       </div>
       <div className="quote-cards">
-        {filteredClasses.map((classObj, index) => (
+        {displayClasses.map((classObj, index) => (
           <div key={index}>
             <ClassCard classObj={classObj} />
           </div>
