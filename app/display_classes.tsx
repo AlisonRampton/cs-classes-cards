@@ -99,12 +99,13 @@ const TabbedClasses: React.FC = () => {
             key={index}
             id={emphasis.displayName}
             onClick={() => handleTopCategoryChange(emphasis)}
-            className="col-auto top-button m-1 rounded-xl dark:ring-pink-950 ring-pink-300"
+            className={`col-auto top-button m-1 rounded-xl  ring-highlight-color ${
+              selectedTopCategory?.displayName === emphasis.displayName
+                ? "ring-2 ring-highlight-color"
+                : ""
+            }`}
           >
-            <Button
-              text={emphasis.displayName}
-              className="emphasis-color" // hover:emphasis-color-hover active:emphasis-color-active
-            />
+            <Button text={emphasis.displayName} className="emphasis-color" />
           </button>
         ))}
       </div>
@@ -113,11 +114,17 @@ const TabbedClasses: React.FC = () => {
           <button
             key={index}
             onClick={() => handleSubCategoryChange(subcategory)}
-            className="m-1 rounded-xl focus-within:ring-4 dark:ring-teal-950 ring-teal-300"
+            className={`m-1 rounded-xl ring-highlight-color ${
+              //focus-within:ring
+              //dark:ring-teal-950
+              selectedSubCategory === subcategory
+                ? "ring-2 ring-highlight-color"
+                : ""
+            }`}
           >
             <Button
               text={subcategory ? subcategory : ""}
-              className="core-elect-color hover:bg-teal-500 active:bg-teal-300"
+              className="core-elect-color" // hover:bg-teal-500 active:bg-teal-300
             />
           </button>
         ))}

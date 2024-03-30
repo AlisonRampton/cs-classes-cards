@@ -3,9 +3,8 @@ import { type Class } from "./definitions";
 export default function ClassCard({ classObj }: { classObj: Class }) {
   return (
     <div
-      className="w-full mt-10 h-auto card-color
-      hover:bg-sky-800 focus:bg-sky-700 focus:ring focus:ring-yellow-400 rounded-md shadow-md hover:shadow-lg 
-      transition-all duration-1000 ease-in-out flex-col group cursor-pointer"
+      className="w-full mt-10 h-auto card-color focus:ring focus:ring-highlight-color rounded-md shadow-md  
+      transition-all duration-1000 ease-in-out flex-col group cursor-pointer hover:shadow-lg" //focus:bg-sky-700 hover:bg-sky-800
       tabIndex={-2}
     >
       <h1 className="text-left text-white text-xl font-semibold font-sans pl-4 pt-2 pr-2">

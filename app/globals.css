@@ -7,32 +7,45 @@
   --background-start-rgb: 225, 225, 230; /*blueish grayish white*/
   --background-end-rgb: 225, 225, 230; /*blueish grayish white*/
 
-  --emphasis-color: #071952; /* Light theme color */
+  --emphasis-color: #1F228D; /* Light theme color */
   --emphasis-color-hover: #484FDA; /* Light theme hover color */
   --emphasis-color-active: #726FE5;
 
-  --core-elect-color: #0B666A;
-  --card-color: #35A29F;
+  --core-elect-color: #109693;
+  --core-elect-color-hover: #13C7C3; /* Light theme hover color */
+  --core-elect-color-active: #13E9E4;
+
+  --card-color: #219AB7;
+  --card-color-hover: #27CFD3;
+  --card-color-active: #6ECFE6;
 }
 
 .emphasis-color {
   background-color: var(--emphasis-color);
 }
-
 .emphasis-color:hover {
   background-color:var(--emphasis-color-hover);
 }
-
 .emphasis-color:active {
   background-color:var(--emphasis-color-active);
 }
-
 .core-elect-color {
   background-color:var(--core-elect-color);
 }
-
+.core-elect-color:hover {
+  background-color:var(--core-elect-color-hover);
+}
+.core-elect-color:active {
+  background-color:var(--core-elect-color-active);
+}
 .card-color {
   background-color:var(--card-color);
+}
+.card-color:hover {
+  background-color:var(--card-color-hover);
+}
+.card-color:active {
+  background-color:var(--card-color-active);
 }
 
 @media (prefers-color-scheme: dark) {
