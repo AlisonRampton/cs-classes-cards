@@ -6,17 +6,24 @@
   --foreground-rgb: 0, 0, 0; /* black */
   --background-start-rgb: 225, 225, 230; /*blueish grayish white*/
   --background-end-rgb: 225, 225, 230; /*blueish grayish white*/
+
+  --emphasis-color: #071952; /* Light theme color */
+  --emphasis-color-hover: #484FDA; /* Light theme hover color */
+  --emphasis-color-active: #726FE5;
+
+  --core-elect-color: #0B666A;
+  --card-color: #35A29F;
 }
 
 .emphasis-color {
   background-color: var(--emphasis-color);
 }
 
-.emphasis-color-hover {
+.emphasis-color:hover {
   background-color:var(--emphasis-color-hover);
 }
 
-.emphasis-color-active {
+.emphasis-color:active {
   background-color:var(--emphasis-color-active);
 }
 

@@ -103,7 +103,7 @@ const TabbedClasses: React.FC = () => {
           >
             <Button
               text={emphasis.displayName}
-              className="emphasis-color hover:emphasis-color-hover active:emphasis-color-active"
+              className="emphasis-color" // hover:emphasis-color-hover active:emphasis-color-active
             />
           </button>
         ))}

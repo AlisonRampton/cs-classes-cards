@@ -10,8 +10,8 @@ const config: Config = {
     extend: {
       colors: {
         "emphasis-color": "#0C1C90",
-        "emphasis-color-hover": "#484FDA",
-        "emphasis-color-active": "#726FE5",
+        // "emphasis-color-hover": "#484FDA",
+        // "emphasis-color-active": "#726FE5",
         "core-elect-color": "#0B666A",
         "card-color": "#35A29F",
         dark: {
