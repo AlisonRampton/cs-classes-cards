@@ -8,6 +8,16 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        "emphasis-color": "#0C1C90",
+        "emphasis-color-hover": "#484FDA",
+        "emphasis-color-active": "#726FE5",
+        "core-elect-color": "#0B666A",
+        "card-color": "#35A29F",
+        dark: {
+          "emphasis-color": "#0",
+        },
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -17,4 +27,5 @@ const config: Config = {
   },
   plugins: [],
 };
+
 export default config;

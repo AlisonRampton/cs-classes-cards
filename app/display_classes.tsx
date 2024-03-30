@@ -103,7 +103,7 @@ const TabbedClasses: React.FC = () => {
           >
             <Button
               text={emphasis.displayName}
-              className="bg-pink-600 hover:bg-pink-500 active:bg-pink-300"
+              className="emphasis-color hover:emphasis-color-hover active:emphasis-color-active"
             />
           </button>
         ))}
@@ -117,7 +117,7 @@ const TabbedClasses: React.FC = () => {
           >
             <Button
               text={subcategory ? subcategory : ""}
-              className="bg-teal-600 hover:bg-teal-500 active:bg-teal-300"
+              className="core-elect-color hover:bg-teal-500 active:bg-teal-300"
             />
           </button>
         ))}

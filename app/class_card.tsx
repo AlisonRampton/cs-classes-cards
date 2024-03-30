@@ -3,7 +3,7 @@ import { type Class } from "./definitions";
 export default function ClassCard({ classObj }: { classObj: Class }) {
   return (
     <div
-      className="w-full mt-10 h-auto bg-sky-900 
+      className="w-full mt-10 h-auto card-color 
       hover:bg-sky-800 focus:bg-sky-700 rounded-md shadow-md hover:shadow-lg 
       transition-all duration-1000 ease-in-out flex-col group"
       tabIndex={-2}
