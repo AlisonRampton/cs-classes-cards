@@ -3,6 +3,10 @@ export type Emphasis = {
   catalogName: string;
 };
 
+export type Subcategory = {
+  displayName: string;
+};
+
 export type Credits = {
   creditHours: {
     min: number;
