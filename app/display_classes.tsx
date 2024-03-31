@@ -147,7 +147,7 @@ const TabbedClasses: React.FC = () => {
             className={`m-1 rounded-xl transition-all duration-300 ease-in-out ${
               //focus-within:ring
               //dark:ring-teal-950
-              selectedSubCategory === subcategory
+              selectedSubCategory?.displayName === subcategory.displayName
                 ? "ring-2 shadow-inner dark:shadow-slate-800 shadow-slate-500 ring-highlight-color"
                 : ""
             }`}
