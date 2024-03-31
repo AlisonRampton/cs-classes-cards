@@ -93,15 +93,15 @@ const TabbedClasses: React.FC = () => {
     <div className="flex flex-col items-center justify-between p-8">
       <h5 className="text-3xl pb-10">BYU CS Courses</h5>
       {/* <span>Select a Program:</span> */}
-      <div className="tabs w-full grid grid-flow-col grid-rows-3 sm:grid-rows-2 lg:grid-rows-none bg-neutral-800 rounded-xl m-2 p-2 bg-opacity-60">
+      <div className="tabs w-full grid grid-flow-col grid-rows-3 sm:grid-rows-2 lg:grid-rows-none bg-slate-500 rounded-xl m-2 p-2 bg-opacity-60">
         {emphases.map((emphasis, index) => (
           <button
             key={index}
             id={emphasis.displayName}
             onClick={() => handleTopCategoryChange(emphasis)}
-            className={`col-auto top-button m-1 rounded-xl  ring-highlight-color ${
+            className={`col-auto top-button m-1 rounded-xl  ${
               selectedTopCategory?.displayName === emphasis.displayName
-                ? "ring-2 ring-highlight-color"
+                ? "ring-2 shadow-inner shadow-slate-800 ring-highlight-color"
                 : ""
             }`}
           >
@@ -109,22 +109,22 @@ const TabbedClasses: React.FC = () => {
           </button>
         ))}
       </div>
-      <div className="subtabs grid grid-cols-2 w-full m-2 p-2 bg-neutral-800 rounded-xl bg-opacity-60">
+      <div className="subtabs grid grid-cols-2 w-full m-2 p-2 bg-slate-500 rounded-xl bg-opacity-60">
         {subcategories.map((subcategory, index) => (
           <button
             key={index}
             onClick={() => handleSubCategoryChange(subcategory)}
-            className={`m-1 rounded-xl ring-highlight-color ${
+            className={`m-1 rounded-xl ${
               //focus-within:ring
               //dark:ring-teal-950
               selectedSubCategory === subcategory
-                ? "ring-2 ring-highlight-color"
+                ? "ring-2 shadow-inner shadow-slate-800 ring-highlight-color"
                 : ""
             }`}
           >
             <Button
               text={subcategory ? subcategory : ""}
-              className="core-elect-color" // hover:bg-teal-500 active:bg-teal-300
+              className="bg-core-elect-color hover:bg-core-color-hover" // hover:bg-teal-500 active:bg-teal-300
             />
           </button>
         ))}

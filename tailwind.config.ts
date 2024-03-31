@@ -13,8 +13,11 @@ const config: Config = {
         //"emphasis-color": "#0E479C",
         // "emphasis-color-hover": "#484FDA",
         // "emphasis-color-active": "#726FE5",
-        //"core-elect-color": "#0B666A",
-        //"card-color": "#35A29F",
+        "core-elect-color": "#0B666A",
+        "core-color-hover": "#1B7682",
+        "card-color": "#219AB7",
+        "card-color-hover": "#1080B0",
+        "card-color-focus": "#1182C2",
         //dark: {
         //  "emphasis-color": "#0",
         //},
