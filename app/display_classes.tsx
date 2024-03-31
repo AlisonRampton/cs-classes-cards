@@ -29,12 +29,12 @@ const TabbedClasses: React.FC = () => {
     setDisplayClasses(categorizedClasses);
     setClasses(categorizedClasses);
 
-    const defaultCategory = emphases.find(
-      (emphasis) => emphasis.displayName === "Computer Science"
-    );
-    if (defaultCategory) {
-      handleTopCategoryChange(defaultCategory);
-    }
+    // const defaultCategory = emphases.find(
+    //   (emphasis) => emphasis.displayName === "Computer Science"
+    // );
+    // if (defaultCategory) {
+    //   handleTopCategoryChange(defaultCategory);
+    // }
   }, []);
 
   const emphases: Emphasis[] = [
